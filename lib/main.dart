@@ -10,6 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(initialRoute: '/HomePage', home: HomePage());
+    return MaterialApp(home: HomePage());
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'list_of_map.dart';
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
+
                   GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -80,35 +83,179 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: 3 / 2,
                     ),
                     shrinkWrap: true,
-                    itemCount: 4,
+                    itemCount: destinations.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              'https://th.bing.com/th/id/R.dcd20fb5b40563abc40d8df6b6db72be?rik=a%2bHRSjHr4t5yvw&pid=ImgRaw&r=0',
+                      return Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  destinations[index]['image']!,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          Positioned(
+                            top: 120,
+                            left: 20,
+                            child: Text(
+                              destinations[index]['title']!,
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black12,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              '⭐ ${destinations[index]['review']!}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
+
                   SizedBox(height: 10),
                   Text(
                     'Trending Packages',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
-                  ListTile(
-                    title: Image.network(
-                      'https://tse3.mm.bing.net/th/id/OIP.nYlqMF3Tua6gCjcs0pLY7gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3',
-                    ),
-                  ),
                 ],
               ),
             ),
+          ),
+
+          ListView.builder(
+            itemCount: packages.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Stack(
+                children: [
+                  Container(
+                    height: 120,
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 30,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                      color: Colors.white.withOpacity(0.95),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+
+                        child: Row(
+                          children: [
+                            Image.network(
+                              packages[index]['image']!,
+                              fit: BoxFit.cover,
+                              height: 120,
+                              width: 120,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    packages[index]['title']!,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 6),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_time,
+                                        color: Colors.grey.shade600,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 6),
+
+                                      Text(
+                                        '4 nights - 5 days',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        packages[index]['price']!,
+                                        style: TextStyle(
+                                          color: Colors.blueAccent,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(width: 160),
+
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.white,
+                                          backgroundColor: Colors.blueAccent,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        child: Text('Book Now'),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 100,
+                    left: 70,
+                    child: TextButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black12,
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        '🌟 ${packages[index]['review']!}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
