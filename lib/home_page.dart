@@ -76,6 +76,7 @@ class HomePage extends StatelessWidget {
                   SizedBox(height: 10),
 
                   GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
@@ -135,6 +136,7 @@ class HomePage extends StatelessWidget {
           ),
 
           ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             itemCount: packages.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -168,70 +170,75 @@ class HomePage extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: 120,
                               width: 120,
+                              color: Colors.black.withOpacity(0.4),
+                              colorBlendMode: BlendMode.colorBurn,
+                              // opacity: AlwaysStoppedAnimation(9.0),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
                                 vertical: 6,
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    packages[index]['title']!,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
+                              child: SingleChildScrollView(
+                                physics: NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      packages[index]['title']!,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 6),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.access_time,
-                                        color: Colors.grey.shade600,
-                                        size: 18,
-                                      ),
-                                      SizedBox(width: 6),
-
-                                      Text(
-                                        '4 nights - 5 days',
-                                        style: TextStyle(
+                                    SizedBox(height: 6),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.access_time,
                                           color: Colors.grey.shade600,
+                                          size: 18,
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                        SizedBox(width: 6),
 
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        packages[index]['price']!,
-                                        style: TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(width: 160),
-
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          foregroundColor: Colors.white,
-                                          backgroundColor: Colors.blueAccent,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
+                                        Text(
+                                          '4 nights - 5 days',
+                                          style: TextStyle(
+                                            color: Colors.grey.shade600,
                                           ),
                                         ),
-                                        onPressed: () {},
-                                        child: Text('Book Now'),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          packages[index]['price']!,
+                                          style: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(width: 40),
+
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            foregroundColor: Colors.white,
+                                            backgroundColor: Colors.blueAccent,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: Text('Book Now'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -240,16 +247,17 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 100,
-                    left: 70,
+                    top: 90,
+                    left: 50,
                     child: TextButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black12,
+                        foregroundColor: Colors.white,
                       ),
                       onPressed: () {},
                       child: Text(
                         '🌟 ${packages[index]['review']!}',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(fontSize: 12),
                       ),
                     ),
                   ),
